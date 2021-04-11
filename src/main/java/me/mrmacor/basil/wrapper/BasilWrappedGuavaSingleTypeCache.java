@@ -23,89 +23,90 @@
  */
 package me.mrmacor.basil.wrapper;
 
-import com.github.benmanes.caffeine.cache.Cache;
-import me.mrmacor.basil.cache.BasilCache;
-import me.mrmacor.basil.cache.BasilDelegationCache;
+import com.google.common.cache.Cache;
+import me.mrmacor.basil.cache.BasilSingleTypeCache;
+import me.mrmacor.basil.cache.BasilDelegationSingleTypeCache;
 
 import javax.annotation.Nonnull;
 import java.util.Set;
 
 /**
- * A {@link BasilCache} wrapper around {@link Cache} (Caffeine).
+ * A {@link BasilSingleTypeCache} wrapper around {@link Cache} (Guava).
  *
  * @param <V> the type the cache stores
+ * @since 1.0.0
  */
-public class BasilWrappedCaffeineCache<V> implements BasilDelegationCache<V, Cache<V, Integer>> {
+public class BasilWrappedGuavaSingleTypeCache<V> implements BasilDelegationSingleTypeCache<V, Cache<V, Integer>> {
 
     private final Cache<V, Integer> delegate;
 
-    BasilWrappedCaffeineCache(Cache<V, Integer> delegate) {
+    BasilWrappedGuavaSingleTypeCache(final Cache<V, Integer> delegate) {
         this.delegate = delegate;
     }
 
     @Nonnull
     @Override
     public Cache<V, Integer> delegate() {
-        return delegate;
+        return this.delegate;
     }
 
     @Override
-    public boolean contains(@Nonnull V value) {
-        return delegate().getIfPresent(value) != null;
+    public boolean contains(@Nonnull final V value) {
+        return this.delegate().getIfPresent(value) != null;
     }
 
     @Override
-    public void add(@Nonnull V value) {
-        delegate().put(value, 0);
+    public void add(@Nonnull final V value) {
+        this.delegate().put(value, 0);
     }
 
     @Override
-    public void addAll(@Nonnull Iterable<V> values) {
-        for (V value : values) {
-            delegate().put(value, 0);
+    public void addAll(@Nonnull final Iterable<V> values) {
+        for (final V value : values) {
+            this.delegate().put(value, 0);
         }
     }
 
     @Override
-    public void addAll(@Nonnull V... values) {
-        for (V value : values) {
-            delegate().put(value, 0);
+    public void addAll(@Nonnull final V... values) {
+        for (final V value : values) {
+            this.delegate().put(value, 0);
         }
     }
 
     @Override
-    public void invalidate(@Nonnull V value) {
-        delegate().invalidate(value);
+    public void invalidate(@Nonnull final V value) {
+        this.delegate().invalidate(value);
     }
 
     @Override
-    public void invalidateAll(@Nonnull Iterable<V> values) {
-        delegate().invalidateAll(values);
+    public void invalidateAll(@Nonnull final Iterable<V> values) {
+        this.delegate().invalidateAll(values);
     }
 
     @Override
     public void invalidateAll() {
-        delegate().invalidateAll();
+        this.delegate().invalidateAll();
     }
 
     @Override
     public boolean isEmpty() {
-        return delegate().asMap().isEmpty();
+        return this.delegate().asMap().isEmpty();
     }
 
     @Nonnull
     @Override
     public Set<V> asSet() {
-        return delegate().asMap().keySet();
+        return this.delegate().asMap().keySet();
     }
 
     @Override
     public long size() {
-        return delegate().estimatedSize();
+        return this.delegate().size();
     }
 
     @Override
     public void cleanUp() {
-        delegate().cleanUp();
+        this.delegate().cleanUp();
     }
 }
