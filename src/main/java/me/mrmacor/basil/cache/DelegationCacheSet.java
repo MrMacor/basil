@@ -32,12 +32,12 @@ import javax.annotation.Nonnull;
  * @param <T> the type the cache wraps
  * @since 1.0.0
  */
-public interface BasilDelegationSingleTypeCache<V, T> extends BasilSingleTypeCache<V> {
+public interface DelegationCacheSet<V, T> extends CacheSet<V> {
 
     /**
-     * Returns the cache this forwarding cache delegates its operations to.
+     * Returns the cache this delegation cache delegates its operations to.
      *
-     * @return the cache this forwarding cache delegates its operations to
+     * @return the cache this delegation cache delegates its operations to
      * @since 1.0.0
      */
     @Nonnull T delegate();

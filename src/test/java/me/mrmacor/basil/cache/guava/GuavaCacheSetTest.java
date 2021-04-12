@@ -21,13 +21,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package me.mrmacor.basil.cache.caffeine;
+package me.mrmacor.basil.cache.guava;
 
-import com.github.benmanes.caffeine.cache.Cache;
-import com.github.benmanes.caffeine.cache.Caffeine;
-import me.mrmacor.basil.cache.BasilSingleTypeCache;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+import me.mrmacor.basil.cache.CacheSet;
 import me.mrmacor.basil.wrapper.BasilCacheWrapper;
-import me.mrmacor.basil.wrapper.BasilWrappedCaffeineSingleTypeCache;
+import me.mrmacor.basil.wrapper.GuavaCacheSet;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -38,13 +38,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 /**
- * This tests basic features of a {@link BasilWrappedCaffeineSingleTypeCache}.
+ * This tests basic features of a {@link GuavaCacheSet}.
  */
-public class BasilWrappedCaffeineTest {
+public class GuavaCacheSetTest {
 
     @Test
     public void add() {
-        BasilSingleTypeCache<String> stringCache = BasilCacheWrapper.wrap(Caffeine.newBuilder().build());
+        CacheSet<String> stringCache = BasilCacheWrapper.wrap(CacheBuilder.newBuilder().build());
         stringCache.add("baz");
 
         assertTrue(stringCache.contains("baz"));
@@ -53,7 +53,7 @@ public class BasilWrappedCaffeineTest {
 
     @Test
     public void addAll() {
-        BasilSingleTypeCache<String> stringCache = BasilCacheWrapper.wrap(Caffeine.newBuilder().build());
+        CacheSet<String> stringCache = BasilCacheWrapper.wrap(CacheBuilder.newBuilder().build());
         stringCache.addAll("uwu", "haha");
 
         assertTrue(stringCache.contains("uwu") && stringCache.contains("haha"));
@@ -66,7 +66,7 @@ public class BasilWrappedCaffeineTest {
 
     @Test
     public void invalidate() {
-        BasilSingleTypeCache<String> stringCache = BasilCacheWrapper.wrap(Caffeine.newBuilder().build());
+        CacheSet<String> stringCache = BasilCacheWrapper.wrap(CacheBuilder.newBuilder().build());
         stringCache.add("fff");
 
         stringCache.invalidate("fff");
@@ -75,7 +75,7 @@ public class BasilWrappedCaffeineTest {
 
     @Test
     public void expires() throws InterruptedException {
-        BasilSingleTypeCache<String> stringCache = BasilCacheWrapper.wrap(Caffeine.newBuilder()
+        CacheSet<String> stringCache = BasilCacheWrapper.wrap(CacheBuilder.newBuilder()
                 .expireAfterWrite(10, TimeUnit.SECONDS)
                 .build());
         stringCache.add("owo");
@@ -86,10 +86,10 @@ public class BasilWrappedCaffeineTest {
 
     @Test
     public void cache() {
-        // Essentially just check that the Caffeine cache that we delegate to doesn't somehow get mangled.
-        Cache<String, Integer> cache = Caffeine.newBuilder().build();
-        BasilSingleTypeCache<String> stringCache = BasilCacheWrapper.wrap(cache);
-        BasilWrappedCaffeineSingleTypeCache<String> wrappedCache = (BasilWrappedCaffeineSingleTypeCache<String>) stringCache;
+        // Essentially just check that the Guava cache that we delegate to doesn't somehow get mangled.
+        Cache<String, Integer> cache = CacheBuilder.newBuilder().build();
+        CacheSet<String> stringCache = BasilCacheWrapper.wrap(cache);
+        GuavaCacheSet<String> wrappedCache = (GuavaCacheSet<String>) stringCache;
 
         assertEquals(wrappedCache.delegate(), cache);
     }

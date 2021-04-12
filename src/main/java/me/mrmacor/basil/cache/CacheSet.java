@@ -33,7 +33,7 @@ import java.util.Set;
  * @param <V> the type the cache stores
  * @since 1.0.0
  */
-public interface BasilSingleTypeCache<V> {
+public interface CacheSet<V> {
 
     /**
      * Returns if the cache contains the specified value.

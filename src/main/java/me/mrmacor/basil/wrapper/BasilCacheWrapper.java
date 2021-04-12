@@ -23,7 +23,7 @@
  */
 package me.mrmacor.basil.wrapper;
 
-import me.mrmacor.basil.cache.BasilSingleTypeCache;
+import me.mrmacor.basil.cache.CacheSet;
 
 import javax.annotation.Nonnull;
 
@@ -39,24 +39,24 @@ public final class BasilCacheWrapper {
     }
 
     /**
-     * Wraps a {@link com.google.common.cache.Cache}, turning it into a {@link BasilSingleTypeCache}.
+     * Wraps a {@link com.google.common.cache.Cache}, turning it into a {@link CacheSet}.
      *
      * @param cache to wrap
      * @return the wrapped cache
      * @since 1.0.0
      */
-    @Nonnull public static <V> BasilSingleTypeCache<V> wrap(@Nonnull final com.google.common.cache.Cache<V, Integer> cache) {
-        return new BasilWrappedGuavaSingleTypeCache<>(cache);
+    @Nonnull public static <V> CacheSet<V> wrap(@Nonnull final com.google.common.cache.Cache<V, Integer> cache) {
+        return new GuavaCacheSet<>(cache);
     }
 
     /**
-     * Wraps a {@link com.github.benmanes.caffeine.cache.Cache}, turning it into a {@link BasilSingleTypeCache}.
+     * Wraps a {@link com.github.benmanes.caffeine.cache.Cache}, turning it into a {@link CacheSet}.
      *
      * @param cache to wrap
      * @return the wrapped cache
      * @since 1.0.0
      */
-    @Nonnull public static <V> BasilSingleTypeCache<V> wrap(@Nonnull final com.github.benmanes.caffeine.cache.Cache<V, Integer> cache) {
-        return new BasilWrappedCaffeineSingleTypeCache<>(cache);
+    @Nonnull public static <V> CacheSet<V> wrap(@Nonnull final com.github.benmanes.caffeine.cache.Cache<V, Integer> cache) {
+        return new CaffeineCacheSet<>(cache);
     }
 }

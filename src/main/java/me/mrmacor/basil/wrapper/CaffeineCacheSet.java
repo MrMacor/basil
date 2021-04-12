@@ -24,23 +24,23 @@
 package me.mrmacor.basil.wrapper;
 
 import com.github.benmanes.caffeine.cache.Cache;
-import me.mrmacor.basil.cache.BasilSingleTypeCache;
-import me.mrmacor.basil.cache.BasilDelegationSingleTypeCache;
+import me.mrmacor.basil.cache.CacheSet;
+import me.mrmacor.basil.cache.DelegationCacheSet;
 
 import javax.annotation.Nonnull;
 import java.util.Set;
 
 /**
- * A {@link BasilSingleTypeCache} wrapper around {@link Cache} (Caffeine).
+ * A {@link CacheSet} wrapper around {@link Cache} (Caffeine).
  *
  * @param <V> the type the cache stores
  * @since 1.0.0
  */
-public class BasilWrappedCaffeineSingleTypeCache<V> implements BasilDelegationSingleTypeCache<V, Cache<V, Integer>> {
+public class CaffeineCacheSet<V> implements DelegationCacheSet<V, Cache<V, Integer>> {
 
     private final Cache<V, Integer> delegate;
 
-    BasilWrappedCaffeineSingleTypeCache(final Cache<V, Integer> delegate) {
+    CaffeineCacheSet(final Cache<V, Integer> delegate) {
         this.delegate = delegate;
     }
 
