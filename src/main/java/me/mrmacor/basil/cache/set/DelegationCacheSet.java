@@ -21,42 +21,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package me.mrmacor.basil.wrapper;
-
-import me.mrmacor.basil.cache.set.CacheSet;
+package me.mrmacor.basil.cache.set;
 
 import javax.annotation.Nonnull;
 
 /**
- * Utility for wrapping {@link com.google.common.cache.Cache} and {@link com.github.benmanes.caffeine.cache.Cache}.
+ * An extended {@link CacheSet} that delegates its operations to another cache.
  *
+ * @param <V> the type the cache stores
+ * @param <T> the type the cache wraps
  * @since 1.0.0
  */
-public final class BasilCacheWrapper {
-
-    private BasilCacheWrapper() {
-
-    }
+public interface DelegationCacheSet<V, T> extends CacheSet<V> {
 
     /**
-     * Wraps a {@link com.google.common.cache.Cache}, turning it into a {@link CacheSet}.
+     * Returns the cache this delegation cache delegates its operations to.
      *
-     * @param cache to wrap
-     * @return the wrapped cache
+     * @return the cache this delegation cache delegates its operations to
      * @since 1.0.0
      */
-    @Nonnull public static <V> CacheSet<V> wrap(@Nonnull final com.google.common.cache.Cache<V, Integer> cache) {
-        return new CacheSetImpl<>(new WrappedGuavaCache<>(cache));
-    }
-
-    /**
-     * Wraps a {@link com.github.benmanes.caffeine.cache.Cache}, turning it into a {@link CacheSet}.
-     *
-     * @param cache to wrap
-     * @return the wrapped cache
-     * @since 1.0.0
-     */
-    @Nonnull public static <V> CacheSet<V> wrap(@Nonnull final com.github.benmanes.caffeine.cache.Cache<V, Integer> cache) {
-        return new CacheSetImpl<>(new WrappedCaffeineCache<>(cache));
-    }
+    @Nonnull T delegate();
 }

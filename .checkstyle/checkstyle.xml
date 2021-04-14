@@ -41,9 +41,6 @@
             <property name="tagOrder" value="@author, @deprecated, @exception, @param, @return, @serial, @serialData, @serialField, @throws, @see, @since, @sinceMinecraft, @version"/>
         </module>
 
-        <!-- https://checkstyle.org/config_imports.html#AvoidStarImport -->
-        <module name="AvoidStarImport"/>
-
         <!-- https://checkstyle.org/config_misc.html#AvoidEscapedUnicodeCharacters -->
         <module name="AvoidEscapedUnicodeCharacters">
             <property name="allowByTailComment" value="true"/>

@@ -26,13 +26,13 @@ package me.mrmacor.basil.cache;
 import javax.annotation.Nonnull;
 
 /**
- * A cache that delegates its operations to another cache.
+ * An extended {@link BasilCache} that delegates its operations to another cache.
  *
  * @param <V> the type the cache stores
  * @param <T> the type the cache wraps
  * @since 1.0.0
  */
-public interface DelegationCacheSet<V, T> extends CacheSet<V> {
+public interface DelegationBasilCache<K, V, T> extends BasilCache<K, V> {
 
     /**
      * Returns the cache this delegation cache delegates its operations to.

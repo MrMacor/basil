@@ -21,14 +21,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package me.mrmacor.basil.cache;
+package me.mrmacor.basil.cache.set;
+
+import me.mrmacor.basil.wrapper.CacheSetImpl;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import java.util.Set;
 
 /**
- * A cache that stores elements of a single type, not in a key-value pair.
+ * A cache that stores elements of a single type, not in a key-value pair. See {@link CacheSetImpl}.
  *
  * @param <V> the type the cache stores
  * @since 1.0.0

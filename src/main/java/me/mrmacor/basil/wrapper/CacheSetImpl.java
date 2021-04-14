@@ -23,36 +23,36 @@
  */
 package me.mrmacor.basil.wrapper;
 
-import com.github.benmanes.caffeine.cache.Cache;
-import me.mrmacor.basil.cache.CacheSet;
-import me.mrmacor.basil.cache.DelegationCacheSet;
+import me.mrmacor.basil.cache.BasilCache;
+import me.mrmacor.basil.cache.set.CacheSet;
+import me.mrmacor.basil.cache.set.DelegationCacheSet;
 
 import javax.annotation.Nonnull;
 import java.util.Set;
 
 /**
- * A {@link CacheSet} wrapper around {@link Cache} (Caffeine).
+ * A {@link CacheSet} wrapper around a {@link BasilCache}.
  *
  * @param <V> the type the cache stores
  * @since 1.0.0
  */
-public class CaffeineCacheSet<V> implements DelegationCacheSet<V, Cache<V, Integer>> {
+public class CacheSetImpl<V> implements DelegationCacheSet<V, BasilCache<V, Integer>> {
 
-    private final Cache<V, Integer> delegate;
+    private final BasilCache<V, Integer> delegate;
 
-    CaffeineCacheSet(final Cache<V, Integer> delegate) {
+    CacheSetImpl(final BasilCache<V, Integer> delegate) {
         this.delegate = delegate;
     }
 
     @Nonnull
     @Override
-    public Cache<V, Integer> delegate() {
+    public BasilCache<V, Integer> delegate() {
         return this.delegate;
     }
 
     @Override
     public boolean contains(@Nonnull final V value) {
-        return this.delegate().getIfPresent(value) != null;
+        return this.delegate().valueIfPresent(value) != null;
     }
 
     @Override
@@ -102,7 +102,7 @@ public class CaffeineCacheSet<V> implements DelegationCacheSet<V, Cache<V, Integ
 
     @Override
     public long size() {
-        return this.delegate().estimatedSize();
+        return this.delegate().size();
     }
 
     @Override

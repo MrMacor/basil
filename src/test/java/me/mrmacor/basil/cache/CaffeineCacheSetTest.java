@@ -21,24 +21,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package me.mrmacor.basil.cache.caffeine;
+package me.mrmacor.basil.cache;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
-import me.mrmacor.basil.cache.CacheSet;
+import me.mrmacor.basil.cache.set.CacheSet;
 import me.mrmacor.basil.wrapper.BasilCacheWrapper;
-import me.mrmacor.basil.wrapper.CaffeineCacheSet;
+import me.mrmacor.basil.wrapper.CacheSetImpl;
+import me.mrmacor.basil.wrapper.WrappedCaffeineCache;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 
 /**
- * This tests basic features of a {@link CaffeineCacheSet}.
+ * This tests basic features of a {@link CacheSetImpl}.
  */
 public class CaffeineCacheSetTest {
 
@@ -89,8 +88,8 @@ public class CaffeineCacheSetTest {
         // Essentially just check that the Caffeine cache that we delegate to doesn't somehow get mangled.
         Cache<String, Integer> cache = Caffeine.newBuilder().build();
         CacheSet<String> stringCache = BasilCacheWrapper.wrap(cache);
-        CaffeineCacheSet<String> wrappedCache = (CaffeineCacheSet<String>) stringCache;
+        CacheSetImpl<String> wrappedCache = (CacheSetImpl<String>) stringCache;
 
-        assertEquals(wrappedCache.delegate(), cache);
+        assertEquals(((WrappedCaffeineCache<String, Integer>) wrappedCache.delegate()).delegate(), cache);
     }
 }
