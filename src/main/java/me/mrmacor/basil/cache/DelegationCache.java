@@ -26,7 +26,7 @@ package me.mrmacor.basil.cache;
 import javax.annotation.Nonnull;
 
 /**
- * An Basil cache that delegates its operations to another cache.
+ * A Basil cache that delegates its operations to another cache.
  *
  * @param <T> the type the cache wraps
  * @since 1.0.0
