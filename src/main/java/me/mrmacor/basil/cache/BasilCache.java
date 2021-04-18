@@ -34,7 +34,7 @@ import java.util.concurrent.ExecutionException;
 
 /**
  * A custom implementation of a Cache{@literal <}K, V>.
- * Used as a representation of either a Guava or Caffeine cache.
+ * Used as a representation of either a {@link com.google.common.cache.Cache} or a {@link com.github.benmanes.caffeine.cache.Cache}.
  *
  * @since 1.0.0
  */

@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package me.mrmacor.basil.cache.set;
+package me.mrmacor.basil.cache;
 
 import me.mrmacor.basil.wrapper.CacheSetImpl;
 

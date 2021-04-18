@@ -24,8 +24,8 @@
 package me.mrmacor.basil.wrapper;
 
 import me.mrmacor.basil.cache.BasilCache;
-import me.mrmacor.basil.cache.set.CacheSet;
-import me.mrmacor.basil.cache.set.DelegationCacheSet;
+import me.mrmacor.basil.cache.CacheSet;
+import me.mrmacor.basil.cache.DelegationCache;
 
 import javax.annotation.Nonnull;
 import java.util.Set;
@@ -36,11 +36,17 @@ import java.util.Set;
  * @param <V> the type the cache stores
  * @since 1.0.0
  */
-public class CacheSetImpl<V> implements DelegationCacheSet<V, BasilCache<V, Integer>> {
+public class CacheSetImpl<V> implements CacheSet<V>, DelegationCache<BasilCache<V, Integer>> {
 
     private final BasilCache<V, Integer> delegate;
 
-    CacheSetImpl(final BasilCache<V, Integer> delegate) {
+    /**
+     * Constructor for the {@link CacheSet} implementation.
+     *
+     * @param delegate to delegate to
+     * @since 1.0.0
+     */
+    public CacheSetImpl(@Nonnull final BasilCache<V, Integer> delegate) {
         this.delegate = delegate;
     }
 

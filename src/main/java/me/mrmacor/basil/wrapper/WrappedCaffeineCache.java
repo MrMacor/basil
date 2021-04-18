@@ -24,7 +24,8 @@
 package me.mrmacor.basil.wrapper;
 
 import com.google.common.collect.ImmutableMap;
-import me.mrmacor.basil.cache.DelegationBasilCache;
+import me.mrmacor.basil.cache.BasilCache;
+import me.mrmacor.basil.cache.DelegationCache;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -33,15 +34,21 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentMap;
 
 /**
- * Wrapper around a {@link com.github.benmanes.caffeine.cache.Cache} that implements {@link DelegationBasilCache}.
+ * Wrapper around a {@link com.github.benmanes.caffeine.cache.Cache} that implements {@link BasilCache}.
  *
  * @since 1.0.0
  */
-public class WrappedCaffeineCache<K, V> implements DelegationBasilCache<K, V, com.github.benmanes.caffeine.cache.Cache<K, V>> {
+public class WrappedCaffeineCache<K, V> implements BasilCache<K, V>, DelegationCache<com.github.benmanes.caffeine.cache.Cache<K, V>> {
 
     private final com.github.benmanes.caffeine.cache.Cache<K, V> delegate;
 
-    WrappedCaffeineCache(final com.github.benmanes.caffeine.cache.Cache<K, V> delegate) {
+    /**
+     * Constructor for the Basil-wrapped {@link com.github.benmanes.caffeine.cache.Cache}.
+     *
+     * @param delegate to delegate to
+     * @since 1.0.0
+     */
+    public WrappedCaffeineCache(@Nonnull final com.github.benmanes.caffeine.cache.Cache<K, V> delegate) {
         this.delegate = delegate;
     }
 

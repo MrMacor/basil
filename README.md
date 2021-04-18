@@ -1,7 +1,7 @@
 # basil
 ![Java CI With Gradle](https://img.shields.io/github/workflow/status/MrMacor/basil/Java%20CI%20with%20Gradle/main?color=629660&label=basil) [![MIT License](https://img.shields.io/badge/license-MIT-blue)](license.txt)
 
-`basil` is a library written in Java that aims to expand and improve on the [Guava](https://github.com/google/guava "google/guava")/[Caffeine](https://github.com/ben-manes/caffeine "ben-manes/caffeine") `Cache<K, V>` implementation.
+`basil` is a library written in Java which aims to expand and improve on the [Guava](https://github.com/google/guava "google/guava")/[Caffeine](https://github.com/ben-manes/caffeine "ben-manes/caffeine") `Cache<K, V>` implementation.
 
 # Building Requirements
 As of now, you'll need to build `basil` yourself.
@@ -33,4 +33,4 @@ From the command line:
 Read [contributing.md](../main/contributing.md "contributing.md").
 
 # License
-`basil` is licensed under the [MIT Liscense](../main/LICENSE "LICENSE").
+`basil` is licensed under the [MIT License](../main/LICENSE "LICENSE").
