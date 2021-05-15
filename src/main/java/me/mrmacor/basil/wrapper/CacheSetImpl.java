@@ -58,7 +58,7 @@ public class CacheSetImpl<V> implements CacheSet<V>, DelegationCache<BasilCache<
 
     @Override
     public boolean contains(@Nonnull final V value) {
-        return this.delegate().valueIfPresent(value) != null;
+        return this.delegate().getIfPresent(value) != null;
     }
 
     @Override
