@@ -32,6 +32,7 @@ import me.mrmacor.basil.wrapper.WrappedGuavaCache;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.*;
@@ -39,39 +40,19 @@ import static org.junit.Assert.*;
 /**
  * This tests basic features of a {@link CacheSetImpl}.
  */
-public class CacheTest {
+public class CacheSetTest {
 
     @Test
     public void add() {
-        // Guava
         CacheSet<String> stringCache = BasilCacheBuilder.wrap(CacheBuilder.newBuilder().build()).cacheSet();
         stringCache.add("baz");
 
         assertTrue(stringCache.contains("baz"));
-        assertEquals("baz", stringCache.asSet().toArray()[0]);
-
-        // Caffeine
-        stringCache = BasilCacheBuilder.wrap(Caffeine.newBuilder().build()).cacheSet();
-        stringCache.add("baz");
-        assertTrue(stringCache.contains("baz"));
-        assertEquals("baz", stringCache.asSet().toArray()[0]);
     }
 
     @Test
     public void addAll() {
-        // Guava
         CacheSet<String> stringCache = BasilCacheBuilder.wrap(CacheBuilder.newBuilder().build()).cacheSet();
-        stringCache.addAll("uwu", "haha");
-
-        assertTrue(stringCache.contains("uwu") && stringCache.contains("haha"));
-
-        stringCache.invalidateAll();
-        stringCache.addAll(Arrays.asList("foo", "bar"));
-
-        assertTrue(stringCache.contains("foo") && stringCache.contains("bar"));
-
-        // Caffeine
-        stringCache = BasilCacheBuilder.wrap(Caffeine.newBuilder().build()).cacheSet();
         stringCache.addAll("uwu", "haha");
 
         assertTrue(stringCache.contains("uwu") && stringCache.contains("haha"));
@@ -84,15 +65,7 @@ public class CacheTest {
 
     @Test
     public void invalidate() {
-        // Guava
         CacheSet<String> stringCache = BasilCacheBuilder.wrap(CacheBuilder.newBuilder().build()).cacheSet();
-        stringCache.add("fff");
-
-        stringCache.invalidate("fff");
-        assertFalse(stringCache.contains("fff"));
-
-        // Caffeine
-        stringCache = BasilCacheBuilder.wrap(Caffeine.newBuilder().build()).cacheSet();
         stringCache.add("fff");
 
         stringCache.invalidate("fff");
@@ -100,23 +73,34 @@ public class CacheTest {
     }
 
     @Test
+    public void isEmpty() {
+        CacheSet<String> stringCache = BasilCacheBuilder.wrap(CacheBuilder.newBuilder().build()).cacheSet();
+
+        assertTrue(stringCache.isEmpty());
+    }
+
+    @Test
+    public void asSet() {
+        CacheSet<String> stringCache = BasilCacheBuilder.wrap(CacheBuilder.newBuilder().build()).cacheSet();
+        stringCache.addAll("dog", "cat");
+
+        assertEquals(stringCache.asSet(), new HashSet<>(Arrays.asList("dog", "cat")));
+    }
+
+    @Test
+    public void size() {
+        CacheSet<String> stringCache = BasilCacheBuilder.wrap(CacheBuilder.newBuilder().build()).cacheSet();
+        stringCache.addAll("dog", "cat", "bird");
+
+        assertEquals(stringCache.size(), 3);
+    }
+
+    @Test
     public void expires() throws InterruptedException {
-        // Guava
         CacheSet<String> stringCache = BasilCacheBuilder.wrap(
                 CacheBuilder.newBuilder()
                     .expireAfterWrite(10, TimeUnit.SECONDS)
                     .build())
-                .cacheSet();
-        stringCache.add("owo");
-        Thread.sleep(11000);
-
-        assertFalse(stringCache.contains("owo"));
-
-        // Caffeine
-        stringCache = BasilCacheBuilder.wrap(
-                Caffeine.newBuilder()
-                        .expireAfterWrite(10, TimeUnit.SECONDS)
-                        .build())
                 .cacheSet();
         stringCache.add("owo");
         Thread.sleep(11000);
