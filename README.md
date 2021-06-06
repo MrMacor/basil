@@ -7,7 +7,7 @@
 As of now, you'll need to build `basil` yourself.
 
 You'll need the following software:
-  - Java 11
+  - Java 16
   - Gradle 7
 
 # Building Steps
