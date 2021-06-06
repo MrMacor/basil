@@ -84,7 +84,8 @@ public interface BasilCache<K, V> {
      * @return the value associated with the provided key, null if there is no value for the provided key
      * @since 1.0.0
      */
-    @Nullable V valueIfPresent(@Nonnull final K key);
+    @SuppressWarnings("checkstyle:MethodName")
+    @Nullable V getIfPresent(@Nonnull final K key);
 
     /**
      * Discards any cached value associated with the provided key.

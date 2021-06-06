@@ -73,6 +73,16 @@ public class CacheSetTest {
     }
 
     @Test
+    public void invalidateAll() {
+        CacheSet<String> stringCache = BasilCacheBuilder.wrap(CacheBuilder.newBuilder().build()).cacheSet();
+        stringCache.add("fff");
+        stringCache.add("asjdfjasfd");
+
+        stringCache.invalidateAll();
+        assertTrue(stringCache.isEmpty());
+    }
+
+    @Test
     public void isEmpty() {
         CacheSet<String> stringCache = BasilCacheBuilder.wrap(CacheBuilder.newBuilder().build()).cacheSet();
 
@@ -99,8 +109,8 @@ public class CacheSetTest {
     public void expires() throws InterruptedException {
         CacheSet<String> stringCache = BasilCacheBuilder.wrap(
                 CacheBuilder.newBuilder()
-                    .expireAfterWrite(10, TimeUnit.SECONDS)
-                    .build())
+                        .expireAfterWrite(10, TimeUnit.SECONDS)
+                        .build())
                 .cacheSet();
         stringCache.add("owo");
         Thread.sleep(11000);
